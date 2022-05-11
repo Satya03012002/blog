@@ -34,9 +34,9 @@ import "./db/conn.js"
 console.log(process.env.NODE_ENV)
 
 if(process.env.NODE_ENV === "production"){
-    app.use(express.static(path.join(__dirname,'/client/frontend/build')))
+    app.use(express.static(path.join(__dirname,'/client/build')))
     app.get('*',(req,res)=>{
-        res.sendFile(path.join(_dirname,'client','frontend','build','index.html'));
+        res.sendFile(path.join(_dirname,'client','build','index.html'));
     })
 }else{
     app.get('/',(req,res)=>{
