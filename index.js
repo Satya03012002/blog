@@ -23,7 +23,7 @@ import "./db/conn.js"
 
 
 if(process.env.NODE_ENV == "production"){
-    app.use(express.static("/client/frontend/build"))
+    app.use(express.static("client/frontend/build"))
 }
 
 app.get('*',(req,res)=>{
