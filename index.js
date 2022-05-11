@@ -2,8 +2,18 @@ import express from 'express';
 import mongoose from "mongoose";
 import bodyParser from "body-parser";
 import cors from 'cors';
+// const dotenv = require("dotenv");
+import dotenv from 'dotenv'
+dotenv.config({path:'./config.env'})
 
-const PORT = process.env.PORT || 5000
+import path from "path"
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+const PORT = process.env.PORT 
 
 const app = express();
 
@@ -21,14 +31,20 @@ import "./db/conn.js"
 
 
 
+console.log(process.env.NODE_ENV)
 
-if(process.env.NODE_ENV == "production"){
-    app.use(express.static("client/frontend/build"))
+if(process.env.NODE_ENV === "production"){
+    app.use(express.static(path.join(__dirname,'/client/frontend/build')))
+    app.get('*',(req,res)=>{
+        res.sendFile(path.join(_dirname,'client','frontend','build','index.html'));
+    })
+}else{
+    app.get('/',(req,res)=>{
+        res.send("api running")
+    })
 }
 
-app.get('*',(req,res)=>{
-    res.sendFile(path.join(_dirname,'/client/frontend/build','index.html'));
-})
+
 
 
 app.listen(PORT,()=>{
