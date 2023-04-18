@@ -4,6 +4,7 @@ import bcrypt from 'bcrypt'
 
 export const getAllUser = async(req,res)=>{
     let allUserData;
+    
 
     try{
         allUserData = await Detail.find().populate('blogs');
